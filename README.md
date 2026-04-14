@@ -21,7 +21,6 @@
 ```
 
 ## 📁 Struktur Proyek
-```
 saucedemo-portfolio/
 ├── tests/
 │ ├── smoke/ # Test dasar: Login valid & invalid
