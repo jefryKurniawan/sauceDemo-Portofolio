@@ -1,0 +1,27 @@
+{
+  "name": "portfolio-sdet",
+  "version": "1.0.0",
+  "description": "Portfolio SDET - Playwright 1.59.1 ESM + Podman + Node 22.22.1",
+  "main": "index.js",
+  "scripts": {
+    "test:ui": "npx playwright test --project=firefox",
+    "test:ui:headed": "npx playwright test --project=firefox --headed",
+    "test:smoke": "npx playwright test tests/smoke --project=firefox",
+    "test:functional": "npx playwright test tests/functional --project=firefox",
+    "test:regression": "npx playwright test tests/regression --project=firefox",
+    "test:security": "npx playwright test tests/security --project=firefox",
+    "test:all": "npx playwright test --project=firefox",
+    "report": "npx playwright show-report",
+    "perf": "k6 run performance/load-test.js",
+    "podman:build": "podman build -t saucedemo-test -f Containerfile .",
+    "podman:test": "podman run --rm -v $(pwd)/test-results:/app/test-results:Z saucedemo-test",
+    "podman:report": "podman run --rm -v $(pwd)/playwright-report:/app/playwright-report:Z saucedemo-test npx playwright show-report",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}
