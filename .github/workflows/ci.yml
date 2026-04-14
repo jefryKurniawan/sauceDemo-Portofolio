@@ -60,7 +60,7 @@ jobs:
 
     steps:
       # Checkout code (sama kayak job sebelumnya)
-      - name: Checkout code
+       - name: Checkout code
         uses: actions/checkout@v4
 
       # Setup Node.js (versi sama, biar konsisten)
@@ -69,10 +69,12 @@ jobs:
         with:
           node-version: "22.22.1"
 
-      # Setup K6 menggunakan official action dari Grafana
-      - name: Setup K6 using Grafana action
-        uses: grafana/k6-action@v0.3.1
+      # Install K6 manually (more reliable than deprecated action)
+      - name: Install K6
+        run: |
+          curl -L https://github.com/grafana/k6/releases/download/v0.52.0/k6-v0.52.0-linux-amd64.tar.gz | tar xz
+          sudo cp k6-v0.52.0-linux-amd64/k6 /usr/local/bin/
+          k6 version
 
-      # Jalankan performance test script
       - name: Run K6 test
         run: k6 run performance/load-test.js
