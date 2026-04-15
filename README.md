@@ -2,6 +2,8 @@
 
 [![CI/CD](https://github.com/jefryKurniawan/sauceDemo-Portofolio/actions/workflows/ci.yml/badge.svg)](https://github.com/jefryKurniawan/sauceDemo-Portofolio/actions)
 
+[![CI/CD](https://github.com/jefryKurniawan/sauceDemo-Portofolio/actions/workflows/ci.yml/badge.svg)](https://github.com/jefryKurniawan/sauceDemo-Portofolio/actions)
+
 > Proyek ini dibuat sebagai portfolio belajar **SDET (Software Development Engineer in Test)** untuk pemula.  
 > Fokus pada pengujian otomatis website [SauceDemo](https://www.saucedemo.com) menggunakan **Playwright**, **K6**, dan **CI/CD**.  
 > Dibuat sederhana, ringan, dan mudah dipahami oleh recruiter maupun developer lain.
@@ -148,16 +150,12 @@ Pipeline otomatis berjalan setiap kali ada **push** atau **pull request** ke bra
 
 ## 📚 Documentation
 
-📋 [View Detailed Test Cases & Execution Report →](./TEST_CASES.md)
-
----
+[View Detailed Test Cases & Execution Report →](./TEST_CASES.md)
 
 ---
 
 ## 👨‍💻 Dibuat Oleh
 
 **Jefry Kurniawan**  
-📧 [kjefry525@gmail.com](mailto:kjefry525@gmail.com)
-🔗 [LinkedIn](https://www.linkedin.com/in/jefry-kurniawan-7443272aa/) | [GitHub](https://github.com/jefryKurniawan)
-
----
+📧 [kjefry525@gmail.com](mailto:kjefry525@gmail.com)  
+🔗 [LinkedIn](https://www.linkedin.com/in/jefry-kurniawan-7443272aa/) | [GitHub](https://github.com/jefryKurniawan)>>>>>>> a0a580bb125ee8d71144a15cf4027a820bcd40e8
