@@ -76,10 +76,6 @@ Data flow divalidasi secara berurutan untuk memastikan konsistensi state antar e
 
 ## Execution & Maintenance
 
-... (biarkan bagian ini tetap sama)
-
-## Execution & Maintenance
-
 - Tests run automatically on every push to `main` via GitHub Actions.
 - Playwright generates an HTML report on each run; artifacts are saved for 7 days.
 - K6 thresholds are set to baseline values suitable for a demo application.
