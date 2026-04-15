@@ -1,48 +1,34 @@
-# GitHub Actions Workflow - CI/CD Pipeline for SDET Portfolio
-
-# Trigger: Kapan pipeline ini jalan?
 name: 🧪 SDET Portfolio CI
 
 on:
-  # Jalan kalau ada push ke branch main/master
   push:
     branches: [main, master]
-
-  # Jalan juga kalau ada pull request (biar review code lebih aman)
   pull_request:
     branches: [main, master]
 
-# Jobs: Kumpulan task yang bakal dieksekusi
 jobs:
-  # Job 1: UI Test dengan Playwright + Firefox
   test-ui:
     name: UI Test (Playwright + Firefox)
-    # Runner: server GitHub pake Ubuntu latest (gratis & cepat)
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Download source code dari repo ke runner
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Install Node.js versi 22.22.1
       - name: Setup Node.js 22.22.1
         uses: actions/setup-node@v4
         with:
           node-version: "22.22.1"
           cache: "npm"
 
-      # Step 3: Install dependencies + browser Firefox
       - name: Install dependencies
         run: |
           npm ci
           npx playwright install firefox --with-deps
 
-      # Step 4: Jalankan semua UI test dengan project Firefox
       - name: Run Playwright tests
         run: npx playwright test --project=firefox --reporter=html
 
-      # Step 5: Upload hasil report sebagai artifact (biar bisa di-download recruiter)
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         if: always()
@@ -51,28 +37,30 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
-  # Job 2: Performance Test dengan K6 (opsional, cuma jalan di push ke main)
   test-perf:
     name: Performance Test (K6)
     runs-on: ubuntu-latest
-    # Condition: job ini cuma jalan kalau push ke branch main (bukan PR)
     if: github.ref == 'refs/heads/main'
 
     steps:
-      # Checkout code (sama kayak job sebelumnya)
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Setup Node.js (versi sama, biar konsisten)
       - name: Setup Node.js 22.22.1
         uses: actions/setup-node@v4
         with:
           node-version: "22.22.1"
 
-      # Setup K6 menggunakan official action dari Grafana
-      - name: Setup K6 using Grafana action
-        uses: grafana/k6-action@v0.3.1
+      - name: Install K6
+        run: |
+          echo "Installing K6 v0.52.0..."
+          curl -L https://github.com/grafana/k6/releases/download/v0.52.0/k6-v0.52.0-linux-amd64.tar.gz -o k6.tar.gz
+          tar -xzf k6.tar.gz
+          chmod +x k6-v0.52.0-linux-amd64/k6
+          sudo mv k6-v0.52.0-linux-amd64/k6 /usr/local/bin/k6
+          k6 version
 
-      # Jalankan performance test script
       - name: Run K6 test
-        run: k6 run performance/load-test.js
+        run: |
+          echo "Running performance test: performance/load-test.js"
+          k6 run performance/load-test.js

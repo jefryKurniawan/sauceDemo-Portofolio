@@ -1,5 +1,7 @@
 # 🧪 Portfolio SDET - SauceDemo Automated Testing
 
+[![CI/CD](https://github.com/jefryKurniawan/sauceDemo-Portofolio/actions/workflows/ci.yml/badge.svg)](https://github.com/jefryKurniawan/sauceDemo-Portofolio/actions)
+
 > Proyek ini dibuat sebagai portfolio belajar **SDET (Software Development Engineer in Test)** untuk pemula.  
 > Fokus pada pengujian otomatis website [SauceDemo](https://www.saucedemo.com) menggunakan **Playwright**, **K6**, dan **CI/CD**.  
 > Dibuat sederhana, ringan, dan mudah dipahami oleh recruiter maupun developer lain.
@@ -20,7 +22,6 @@
 ```
 
 ## 📁 Struktur Proyek
-
 saucedemo-portfolio/
 ├── tests/
 │ ├── smoke/ # Test dasar: Login valid & invalid
@@ -33,7 +34,6 @@ saucedemo-portfolio/
 ├── playwright.config.js# Konfigurasi Playwright (Firefox, HTML Report, Mobile)
 ├── package.json # Dependencies & script perintah
 └── README.md # Dokumentasi proyek
-
 ```
 
 ## 📋 Penjelasan Jenis Test
@@ -135,11 +135,29 @@ Pipeline otomatis berjalan setiap kali ada **push** atau **pull request** ke bra
 - 🧪 Jalankan Playwright test → upload HTML report sebagai artifact
 - 📈 Jalankan K6 performance test (hanya di push ke `main`)
 
+### 🔧 Challenges & Solutions (CI/CD Learnings):
+
+| **Kendala**                                 | **Solusi**                                             | **Learning**                              |
+| ------------------------------------------- | ------------------------------------------------------ | ----------------------------------------- |
+| ❌ `grafana/k6-action@v0.3.1` deprecated    | ✅ Ganti manual install pakai `curl`                   | Gunakan official binary untuk reliability |
+| ❌ Action cari `test.js` (bukan path benar) | ✅ Explicit specify: `k6 run performance/load-test.js` | Selalu check default values               |
+| ❌ YAML indentation tidak konsisten         | ✅ Gunakan 2 spasi per level                           | YAML sensitif terhadap whitespace         |
+| ❌ Docker mount issue                       | ✅ Install binary ke `/usr/local/bin`                  | Hindari complexity jika ada cara simple   |
+
+---
+
+## 📚 Documentation
+
+📋 [View Detailed Test Cases & Execution Report →](./TEST_CASES.md)
+
+---
+
 ---
 
 ## 👨‍💻 Dibuat Oleh
 
 **Jefry Kurniawan**  
 📧 [kjefry525@gmail.com](mailto:kjefry525@gmail.com)
+🔗 [LinkedIn](https://www.linkedin.com/in/jefry-kurniawan-7443272aa/) | [GitHub](https://github.com/jefryKurniawan)
 
 ---
