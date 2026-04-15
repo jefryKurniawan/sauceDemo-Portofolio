@@ -16,7 +16,8 @@
     "podman:build": "podman build -t saucedemo-test -f Containerfile .",
     "podman:test": "podman run --rm -v $(pwd)/test-results:/app/test-results:Z saucedemo-test",
     "podman:report": "podman run --rm -v $(pwd)/playwright-report:/app/playwright-report:Z saucedemo-test npx playwright show-report",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sit": "npx playwright test tests/integration --reporter=html"
   },
   "keywords": [],
   "author": "",

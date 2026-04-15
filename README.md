@@ -29,7 +29,8 @@ saucedemo-portfolio/
 │ ├── smoke/ # Test dasar: Login valid & invalid
 │ ├── functional/ # Test fitur: Tambah & hapus barang di cart
 │ ├── regression/ # Test alur panjang: Checkout lengkap & cancel
-│ └── security/ # Test keamanan: Simulasi SQL Injection
+│ ├── security/ # Test keamanan: Simulasi SQL Injection
+│ └── integration/ # SIT: Banking API simulation
 ├── performance/ # Script load testing K6
 ├── .github/workflows/ # Pipeline CI/CD (GitHub Actions)
 ├── Containerfile # Konfigurasi container untuk Podman
@@ -43,9 +44,10 @@ saucedemo-portfolio/
 | Kategori                | Tujuan                                                                                                                   | Contoh di Proyek                                                                                                        |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | 🔥 **Smoke Test**       | Memastikan fitur paling dasar aplikasi berjalan. Jika gagal, aplikasi dianggap "rusak" dan tidak perlu lanjut test lain. | Login berhasil dengan `standard_user` & Login gagal dengan `locked_out_user`                                            |
-| ⚙️ **Functional Test**  | Memastikan fitur spesifik bekerja sesuai harapan user.                                                                   | Menambah barang ke cart → badge cart berubah jadi `1` <br> Menghapus barang → badge cart hilang                         |
-| 🔄 **Regression Test**  | Memastikan alur panjang tetap stabil & tidak merusak fitur lain setelah perubahan kode.                                  | Checkout lengkap (isi alamat → finish) <br> Batalkan checkout → kembali ke cart                                         |
-| 🛡️ **Security Test**    | Mendeteksi celah keamanan sederhana pada input user.                                                                     | Simulasi SQL Injection (`' OR '1'='1`) di form login → harus tetap ditolak & tidak bocor info database                  |
+| ⚙️ **Functional Test**  | Memastikan fitur spesifik bekerja sesuai harapan user.                                                                   | Menambah barang ke cart => badge cart berubah jadi `1` <br> Menghapus barang => badge cart hilang                       |
+| 🔄 **Regression Test**  | Memastikan alur panjang tetap stabil & tidak merusak fitur lain setelah perubahan kode.                                  | Checkout lengkap (isi alamat => finish) <br> Batalkan checkout => kembali ke cart                                       |
+| 🛡️ **Security Test**    | Mendeteksi celah keamanan sederhana pada input user.                                                                     | Simulasi SQL Injection (`' OR '1'='1`) di form login => harus tetap ditolak & tidak bocor info database                 |
+| 🔗 **Integration Test** | Memastikan komunikasi dengan API eksternal berjalan lancar                                                               | Banking API simulation (CRUD operations)                                                                                |
 | 📈 **Performance Test** | Mengukur kecepatan & stabilitas server saat menerima banyak request bersamaan.                                           | 5-10 virtual user mengakses halaman login & produk selama 1 menit. Threshold: response time < 5 detik, error rate < 50% |
 
 ---
@@ -72,16 +74,19 @@ npx playwright install firefox
 | ------------------------ | ----------------------------------------------- |
 | `npm run test:all`       | Jalankan semua UI test (mode headless/otomatis) |
 | `npm run test:ui:headed` | Jalankan test sambil melihat browser menyala    |
+| `npm run sit`            | 🆕 Jalankan System Integration Test (API Flow)  |
 | `npm run perf`           | Jalankan performance test dengan K6             |
 | `npm run report`         | Buka laporan HTML hasil test                    |
 
 ### 🐳 Jalankan via Container (Podman)
 
-| Perintah                | Keterangan                       |
-| ----------------------- | -------------------------------- |
-| `npm run podman:build`  | Build image container            |
-| `npm run podman:test`   | Jalankan test di dalam container |
-| `npm run podman:report` | Buka report dari container       |
+| Perintah                | Keterangan                                            |
+| ----------------------- | ----------------------------------------------------- |
+| `npm run podman:build`  | Build image container                                 |
+| `npm run podman:test`   | Jalankan **semua test** (UI + SIT) di dalam container |
+| `npm run podman:report` | Buka report dari container                            |
+
+> 💡 **Note:** SIT test (`tests/integration/`) sudah otomatis dijalankan saat menggunakan `npm run podman:test` karena masuk dalam scope `tests/`.
 
 ## 📊 Reporting
 
@@ -158,4 +163,4 @@ Pipeline otomatis berjalan setiap kali ada **push** atau **pull request** ke bra
 
 **Jefry Kurniawan**  
 📧 [kjefry525@gmail.com](mailto:kjefry525@gmail.com)  
-🔗 [LinkedIn](https://www.linkedin.com/in/jefry-kurniawan-7443272aa/) | [GitHub](https://github.com/jefryKurniawan)>>>>>>> a0a580bb125ee8d71144a15cf4027a820bcd40e8
+🔗 [LinkedIn](https://www.linkedin.com/in/jefry-kurniawan-7443272aa/) | [GitHub](https://github.com/jefryKurniawan)

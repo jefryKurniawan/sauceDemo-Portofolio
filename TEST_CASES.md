@@ -60,6 +60,24 @@ Non-UI load testing using K6 to validate baseline response times.
 | ----- | ------------------ | --------------------------------------------- | ---------------------------------------------- | -------------------------- | --------- |
 | TC-08 | Homepage load test | 5 virtual users, 1 min duration, ramp up/down | p95 < 5s, error rate < 50%, 0% actual failures | `performance/load-test.js` | ✅ Passed |
 
+### 🔹 System Integration Testing (SIT Pattern)
+
+Simulasi alur integrasi sistem menggunakan pola perbankan (Create => Read => Update => Delete => Verify).
+Data flow divalidasi secara berurutan untuk memastikan konsistensi state antar endpoint.
+
+| ID     | Scenario                               | Steps                                                                  | Expected Result                                | Mapped Script                                   | Status    |
+| ------ | -------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------- | ----------------------------------------------- | --------- |
+| SIT-01 | Open Account & Validate Creation       | 1. POST request to create account<br>2. Validate response structure    | Status 200, `accountType=Savings`, `balance=0` | `tests/integration/banking-integration.spec.js` | ✅ Passed |
+| SIT-02 | KYC Data Consistency Check             | 1. GET request by ID<br>2. Cross-validate fields with creation payload | All fields match, status `Active`              | `tests/integration/banking-integration.spec.js` | ✅ Passed |
+| SIT-03 | Process Deposit & Verify State         | 1. PUT request with new balance<br>2. GET request to confirm update    | Balance updated to `7500000`, no data loss     | `tests/integration/banking-integration.spec.js` | ✅ Passed |
+| SIT-04 | Account Closure & Cleanup Verification | 1. DELETE request<br>2. GET request to verify removal                  | Status 404, system consistent                  | `tests/integration/banking-integration.spec.js` | ✅ Passed |
+
+---
+
+## Execution & Maintenance
+
+... (biarkan bagian ini tetap sama)
+
 ## Execution & Maintenance
 
 - Tests run automatically on every push to `main` via GitHub Actions.
